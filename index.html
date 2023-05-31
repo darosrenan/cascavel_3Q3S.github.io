@@ -8,6 +8,8 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -30,6 +32,7 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
         <script src="data/Ecoparque_2.js"></script>
         <script src="data/Bairros_3.js"></script>
         <script src="data/Pesquisa3Q3S_Cascavel_4.js"></script>
@@ -59,15 +62,15 @@
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        map.createPane('pane_SuperfciedeInterpolao_1');
-        map.getPane('pane_SuperfciedeInterpolao_1').style.zIndex = 401;
-        var img_SuperfciedeInterpolao_1 = 'data/SuperfciedeInterpolao_1.png';
-        var img_bounds_SuperfciedeInterpolao_1 = [[-24.967396029592898,-53.49102104841036],[-24.93657742811777,-53.432986007973916]];
-        var layer_SuperfciedeInterpolao_1 = new L.imageOverlay(img_SuperfciedeInterpolao_1,
-                                              img_bounds_SuperfciedeInterpolao_1,
-                                              {pane: 'pane_SuperfciedeInterpolao_1'});
-        bounds_group.addLayer(layer_SuperfciedeInterpolao_1);
-        map.addLayer(layer_SuperfciedeInterpolao_1);
+        map.createPane('pane_MapadeCalor_1');
+        map.getPane('pane_MapadeCalor_1').style.zIndex = 401;
+        var img_MapadeCalor_1 = 'data/MapadeCalor_1.png';
+        var img_bounds_MapadeCalor_1 = [[-24.967396029592898,-53.49102104841036],[-24.93657742811777,-53.432986007973916]];
+        var layer_MapadeCalor_1 = new L.imageOverlay(img_MapadeCalor_1,
+                                              img_bounds_MapadeCalor_1,
+                                              {pane: 'pane_MapadeCalor_1'});
+        bounds_group.addLayer(layer_MapadeCalor_1);
+        map.addLayer(layer_MapadeCalor_1);
         function pop_Ecoparque_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -483,15 +486,29 @@
                 return L.circleMarker(latlng, style_Pesquisa3Q3S_Cascavel_4_0(feature));
             },
         });
+        var cluster_Pesquisa3Q3S_Cascavel_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_Pesquisa3Q3S_Cascavel_4.addLayer(layer_Pesquisa3Q3S_Cascavel_4);
+
         bounds_group.addLayer(layer_Pesquisa3Q3S_Cascavel_4);
-        map.addLayer(layer_Pesquisa3Q3S_Cascavel_4);
+        cluster_Pesquisa3Q3S_Cascavel_4.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Pesquisa 3Q3S_Cascavel<br /><table><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R390000R8000000.png" /></td><td>R$390.000 - R$800.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R800000R15000001.png" /></td><td>R$800.000 - R$1.500.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R1500000R22000002.png" /></td><td>R$1.500.000 - R$2.200.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R2200000R30000003.png" /></td><td>R$2.200.000 - R$3.000.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R3000000R40000004.png" /></td><td>R$3.000.000 - R$4.000.000</td></tr></table>': layer_Pesquisa3Q3S_Cascavel_4,'<img src="legend/Bairros_3.png" /> Bairros': layer_Bairros_3,'<img src="legend/Ecoparque_2.png" /> Ecoparque': layer_Ecoparque_2,"Superfície de Interpolação": layer_SuperfciedeInterpolao_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Pesquisa 3Q3S_Cascavel<br /><table><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R390000R8000000.png" /></td><td>R$390.000 - R$800.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R800000R15000001.png" /></td><td>R$800.000 - R$1.500.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R1500000R22000002.png" /></td><td>R$1.500.000 - R$2.200.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R2200000R30000003.png" /></td><td>R$2.200.000 - R$3.000.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R3000000R40000004.png" /></td><td>R$3.000.000 - R$4.000.000</td></tr></table>': cluster_Pesquisa3Q3S_Cascavel_4,'<img src="legend/Bairros_3.png" /> Bairros': layer_Bairros_3,'<img src="legend/Ecoparque_2.png" /> Ecoparque': layer_Ecoparque_2,"Mapa de Calor": layer_MapadeCalor_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
         setBounds();
         L.ImageOverlay.include({
             getBounds: function () {
                 return this._bounds;
             }
+        });
+        resetLabels([layer_Bairros_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Bairros_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Bairros_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Bairros_3]);
         });
         </script>
     </body>
