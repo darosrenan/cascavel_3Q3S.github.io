@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/Pesquisa3Q3S_Cascavel_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        map.createPane('pane_Interpolador_1');
+        map.getPane('pane_Interpolador_1').style.zIndex = 401;
+        var img_Interpolador_1 = 'data/Interpolador_1.png';
+        var img_bounds_Interpolador_1 = [[-24.967396029592898,-53.49102104841036],[-24.93657742811777,-53.432986007973916]];
+        var layer_Interpolador_1 = new L.imageOverlay(img_Interpolador_1,
+                                              img_bounds_Interpolador_1,
+                                              {pane: 'pane_Interpolador_1'});
+        bounds_group.addLayer(layer_Interpolador_1);
+        map.addLayer(layer_Interpolador_1);
+        function pop_Pesquisa3Q3S_Cascavel_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">fid</th>\
+                        <td>' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">USUÁRIO</th>\
+                        <td>' + (feature.properties['USUÁRIO'] !== null ? autolinker.link(feature.properties['USUÁRIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DATA</th>\
+                        <td>' + (feature.properties['DATA'] !== null ? autolinker.link(feature.properties['DATA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HORA</th>\
+                        <td>' + (feature.properties['HORA'] !== null ? autolinker.link(feature.properties['HORA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CIDADE</th>\
+                        <td>' + (feature.properties['CIDADE'] !== null ? autolinker.link(feature.properties['CIDADE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMOBILIARIA</th>\
+                        <td>' + (feature.properties['IMOBILIARIA'] !== null ? autolinker.link(feature.properties['IMOBILIARIA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>LINK</strong><br />' + (feature.properties['LINK'] !== null ? autolinker.link(feature.properties['LINK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOME</th>\
+                        <td>' + (feature.properties['NOME'] !== null ? autolinker.link(feature.properties['NOME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PREÇO</th>\
+                        <td>' + (feature.properties['PREÇO'] !== null ? autolinker.link(feature.properties['PREÇO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CONDOMINIO</th>\
+                        <td>' + (feature.properties['CONDOMINIO'] !== null ? autolinker.link(feature.properties['CONDOMINIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LOGRADOURO</th>\
+                        <td>' + (feature.properties['LOGRADOURO'] !== null ? autolinker.link(feature.properties['LOGRADOURO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NUMERO</th>\
+                        <td>' + (feature.properties['NUMERO'] !== null ? autolinker.link(feature.properties['NUMERO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BAIRRO</th>\
+                        <td>' + (feature.properties['BAIRRO'] !== null ? autolinker.link(feature.properties['BAIRRO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Latitude</th>\
+                        <td>' + (feature.properties['Latitude'] !== null ? autolinker.link(feature.properties['Latitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Longitude</th>\
+                        <td>' + (feature.properties['Longitude'] !== null ? autolinker.link(feature.properties['Longitude'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Link Maps</th>\
+                        <td>' + (feature.properties['Link Maps'] !== null ? autolinker.link(feature.properties['Link Maps'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">QUARTOS</th>\
+                        <td>' + (feature.properties['QUARTOS'] !== null ? autolinker.link(feature.properties['QUARTOS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SUITES</th>\
+                        <td>' + (feature.properties['SUITES'] !== null ? autolinker.link(feature.properties['SUITES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BANHEIROS</th>\
+                        <td>' + (feature.properties['BANHEIROS'] !== null ? autolinker.link(feature.properties['BANHEIROS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GARAGEM</th>\
+                        <td>' + (feature.properties['GARAGEM'] !== null ? autolinker.link(feature.properties['GARAGEM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COBERTA</th>\
+                        <td>' + (feature.properties['COBERTA'] !== null ? autolinker.link(feature.properties['COBERTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DESCOBERTA</th>\
+                        <td>' + (feature.properties['DESCOBERTA'] !== null ? autolinker.link(feature.properties['DESCOBERTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">EDIFICIO</th>\
+                        <td>' + (feature.properties['EDIFICIO'] !== null ? autolinker.link(feature.properties['EDIFICIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SACADA</th>\
+                        <td>' + (feature.properties['SACADA'] !== null ? autolinker.link(feature.properties['SACADA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CHURRASQUEIRA</th>\
+                        <td>' + (feature.properties['CHURRASQUEIRA'] !== null ? autolinker.link(feature.properties['CHURRASQUEIRA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CHUVEIRO A GÁS</th>\
+                        <td>' + (feature.properties['CHUVEIRO A GÁS'] !== null ? autolinker.link(feature.properties['CHUVEIRO A GÁS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AR CONDICIONADO</th>\
+                        <td>' + (feature.properties['AR CONDICIONADO'] !== null ? autolinker.link(feature.properties['AR CONDICIONADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PORTARIA 24HS</th>\
+                        <td>' + (feature.properties['PORTARIA 24HS'] !== null ? autolinker.link(feature.properties['PORTARIA 24HS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ELEVADOR</th>\
+                        <td>' + (feature.properties['ELEVADOR'] !== null ? autolinker.link(feature.properties['ELEVADOR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ENERGIA SOLAR</th>\
+                        <td>' + (feature.properties['ENERGIA SOLAR'] !== null ? autolinker.link(feature.properties['ENERGIA SOLAR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BICICLETARIO</th>\
+                        <td>' + (feature.properties['BICICLETARIO'] !== null ? autolinker.link(feature.properties['BICICLETARIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">KIDS PLACE</th>\
+                        <td>' + (feature.properties['KIDS PLACE'] !== null ? autolinker.link(feature.properties['KIDS PLACE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PLAYGROUND</th>\
+                        <td>' + (feature.properties['PLAYGROUND'] !== null ? autolinker.link(feature.properties['PLAYGROUND'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SALA DE JOGOS</th>\
+                        <td>' + (feature.properties['SALA DE JOGOS'] !== null ? autolinker.link(feature.properties['SALA DE JOGOS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PET PLACE</th>\
+                        <td>' + (feature.properties['PET PLACE'] !== null ? autolinker.link(feature.properties['PET PLACE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SALÃO DE FESTAS</th>\
+                        <td>' + (feature.properties['SALÃO DE FESTAS'] !== null ? autolinker.link(feature.properties['SALÃO DE FESTAS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">QUADRA AREiA / GRAMA</th>\
+                        <td>' + (feature.properties['QUADRA AREiA / GRAMA'] !== null ? autolinker.link(feature.properties['QUADRA AREiA / GRAMA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">QUADRA ESPORTIVA</th>\
+                        <td>' + (feature.properties['QUADRA ESPORTIVA'] !== null ? autolinker.link(feature.properties['QUADRA ESPORTIVA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ESPAÇO FITNESS</th>\
+                        <td>' + (feature.properties['ESPAÇO FITNESS'] !== null ? autolinker.link(feature.properties['ESPAÇO FITNESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PISCINA</th>\
+                        <td>' + (feature.properties['PISCINA'] !== null ? autolinker.link(feature.properties['PISCINA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ACADEMIA</th>\
+                        <td>' + (feature.properties['ACADEMIA'] !== null ? autolinker.link(feature.properties['ACADEMIA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MOBILIADO</th>\
+                        <td>' + (feature.properties['MOBILIADO'] !== null ? autolinker.link(feature.properties['MOBILIADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SEMI MOBILIADO</th>\
+                        <td>' + (feature.properties['SEMI MOBILIADO'] !== null ? autolinker.link(feature.properties['SEMI MOBILIADO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COZINHA PLANEJADA</th>\
+                        <td>' + (feature.properties['COZINHA PLANEJADA'] !== null ? autolinker.link(feature.properties['COZINHA PLANEJADA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BOSQUE</th>\
+                        <td>' + (feature.properties['BOSQUE'] !== null ? autolinker.link(feature.properties['BOSQUE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">POÇO</th>\
+                        <td>' + (feature.properties['POÇO'] !== null ? autolinker.link(feature.properties['POÇO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PRIVATIVA</th>\
+                        <td>' + (feature.properties['PRIVATIVA'] !== null ? autolinker.link(feature.properties['PRIVATIVA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UTIL</th>\
+                        <td>' + (feature.properties['UTIL'] !== null ? autolinker.link(feature.properties['UTIL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TOTAL</th>\
+                        <td>' + (feature.properties['TOTAL'] !== null ? autolinker.link(feature.properties['TOTAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">INFO PARCIAL</th>\
+                        <td>' + (feature.properties['INFO PARCIAL'] !== null ? autolinker.link(feature.properties['INFO PARCIAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PAVIMENTOS</th>\
+                        <td>' + (feature.properties['PAVIMENTOS'] !== null ? autolinker.link(feature.properties['PAVIMENTOS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">APART ANDAR</th>\
+                        <td>' + (feature.properties['APART ANDAR'] !== null ? autolinker.link(feature.properties['APART ANDAR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">STATUS</th>\
+                        <td>' + (feature.properties['STATUS'] !== null ? autolinker.link(feature.properties['STATUS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ANO IMOVEL</th>\
+                        <td>' + (feature.properties['ANO IMOVEL'] !== null ? autolinker.link(feature.properties['ANO IMOVEL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NOTA</th>\
+                        <td>' + (feature.properties['NOTA'] !== null ? autolinker.link(feature.properties['NOTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OBSERVAÇÕES</th>\
+                        <td>' + (feature.properties['OBSERVAÇÕES'] !== null ? autolinker.link(feature.properties['OBSERVAÇÕES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Pesquisa3Q3S_Cascavel_2_0(feature) {
+            if (feature.properties['PREÇO'] >= 390000.000000 && feature.properties['PREÇO'] <= 800000.000000 ) {
+                return {
+                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,206,227,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['PREÇO'] >= 800000.000000 && feature.properties['PREÇO'] <= 1500000.000000 ) {
+                return {
+                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(178,223,138,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['PREÇO'] >= 1500000.000000 && feature.properties['PREÇO'] <= 2200000.000000 ) {
+                return {
+                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,243,43,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['PREÇO'] >= 2200000.000000 && feature.properties['PREÇO'] <= 3000000.000000 ) {
+                return {
+                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,126,33,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['PREÇO'] >= 3000000.000000 && feature.properties['PREÇO'] <= 4000000.000000 ) {
+                return {
+                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Pesquisa3Q3S_Cascavel_2');
+        map.getPane('pane_Pesquisa3Q3S_Cascavel_2').style.zIndex = 402;
+        map.getPane('pane_Pesquisa3Q3S_Cascavel_2').style['mix-blend-mode'] = 'normal';
+        var layer_Pesquisa3Q3S_Cascavel_2 = new L.geoJson(json_Pesquisa3Q3S_Cascavel_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Pesquisa3Q3S_Cascavel_2',
+            layerName: 'layer_Pesquisa3Q3S_Cascavel_2',
+            pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+            onEachFeature: pop_Pesquisa3Q3S_Cascavel_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Pesquisa3Q3S_Cascavel_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Pesquisa3Q3S_Cascavel_2);
+        map.addLayer(layer_Pesquisa3Q3S_Cascavel_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Pesquisa 3Q3S_Cascavel<br /><table><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R390000R8000000.png" /></td><td>R$390.000 - R$800.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R800000R15000001.png" /></td><td>R$800.000 - R$1.500.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R1500000R22000002.png" /></td><td>R$1.500.000 - R$2.200.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R2200000R30000003.png" /></td><td>R$2.200.000 - R$3.000.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R3000000R40000004.png" /></td><td>R$3.000.000 - R$4.000.000</td></tr></table>': layer_Pesquisa3Q3S_Cascavel_2,"Interpolador": layer_Interpolador_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"STATUS": "str","SACADA": "str"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_STATUS = document.createElement('div');
+            div_STATUS.id = "div_STATUS";
+            div_STATUS.className= "filterselect";
+            document.getElementById("menu").appendChild(div_STATUS);
+            sel_STATUS = document.createElement('select');
+            sel_STATUS.multiple = true;
+            sel_STATUS.size = 3;
+            sel_STATUS.id = "sel_STATUS";
+            var STATUS_options_str = "<option value='' unselected></option>";
+            sel_STATUS.onchange = function(){filterFunc()};
+            STATUS_options_str  += '<option value="Lançamento">Lançamento</option>';
+            STATUS_options_str  += '<option value="Novo">Novo</option>';
+            STATUS_options_str  += '<option value="Usado">Usado</option>';
+            sel_STATUS.innerHTML = STATUS_options_str;
+            div_STATUS.appendChild(sel_STATUS);
+            var lab_STATUS = document.createElement('div');
+            lab_STATUS.innerHTML = 'STATUS';
+            lab_STATUS.className = 'filterlabel';
+            div_STATUS.appendChild(lab_STATUS);
+            var reset_STATUS = document.createElement('div');
+            reset_STATUS.innerHTML = 'clear filter';
+            reset_STATUS.className = 'filterlabel';
+            reset_STATUS.onclick = function() {
+                var options = document.getElementById("sel_STATUS").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_STATUS.appendChild(reset_STATUS);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_SACADA = document.createElement('div');
+            div_SACADA.id = "div_SACADA";
+            div_SACADA.className= "filterselect";
+            document.getElementById("menu").appendChild(div_SACADA);
+            sel_SACADA = document.createElement('select');
+            sel_SACADA.multiple = true;
+            sel_SACADA.size = 2;
+            sel_SACADA.id = "sel_SACADA";
+            var SACADA_options_str = "<option value='' unselected></option>";
+            sel_SACADA.onchange = function(){filterFunc()};
+            SACADA_options_str  += '<option value="Não">Não</option>';
+            SACADA_options_str  += '<option value="Sim">Sim</option>';
+            sel_SACADA.innerHTML = SACADA_options_str;
+            div_SACADA.appendChild(sel_SACADA);
+            var lab_SACADA = document.createElement('div');
+            lab_SACADA.innerHTML = 'SACADA';
+            lab_SACADA.className = 'filterlabel';
+            div_SACADA.appendChild(lab_SACADA);
+            var reset_SACADA = document.createElement('div');
+            reset_SACADA.innerHTML = 'clear filter';
+            reset_SACADA.className = 'filterlabel';
+            reset_SACADA.onclick = function() {
+                var options = document.getElementById("sel_SACADA").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_SACADA.appendChild(reset_SACADA);
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
