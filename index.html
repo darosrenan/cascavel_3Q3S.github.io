@@ -8,8 +8,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -32,10 +30,9 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
-        <script src="data/Pesquisa3Q3S_Cascavel_2.js"></script>
+        <script src="data/Ecoparque_2.js"></script>
+        <script src="data/Bairros_3.js"></script>
+        <script src="data/Pesquisa3Q3S_Cascavel_4.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
@@ -62,16 +59,98 @@
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        map.createPane('pane_Interpolador_1');
-        map.getPane('pane_Interpolador_1').style.zIndex = 401;
-        var img_Interpolador_1 = 'data/Interpolador_1.png';
-        var img_bounds_Interpolador_1 = [[-24.967396029592898,-53.49102104841036],[-24.93657742811777,-53.432986007973916]];
-        var layer_Interpolador_1 = new L.imageOverlay(img_Interpolador_1,
-                                              img_bounds_Interpolador_1,
-                                              {pane: 'pane_Interpolador_1'});
-        bounds_group.addLayer(layer_Interpolador_1);
-        map.addLayer(layer_Interpolador_1);
-        function pop_Pesquisa3Q3S_Cascavel_2(feature, layer) {
+        map.createPane('pane_SuperfciedeInterpolao_1');
+        map.getPane('pane_SuperfciedeInterpolao_1').style.zIndex = 401;
+        var img_SuperfciedeInterpolao_1 = 'data/SuperfciedeInterpolao_1.png';
+        var img_bounds_SuperfciedeInterpolao_1 = [[-24.967396029592898,-53.49102104841036],[-24.93657742811777,-53.432986007973916]];
+        var layer_SuperfciedeInterpolao_1 = new L.imageOverlay(img_SuperfciedeInterpolao_1,
+                                              img_bounds_SuperfciedeInterpolao_1,
+                                              {pane: 'pane_SuperfciedeInterpolao_1'});
+        bounds_group.addLayer(layer_SuperfciedeInterpolao_1);
+        map.addLayer(layer_SuperfciedeInterpolao_1);
+        function pop_Ecoparque_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Area'] !== null ? autolinker.link(feature.properties['Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nome'] !== null ? autolinker.link(feature.properties['Nome'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Ecoparque_2_0() {
+            return {
+                pane: 'pane_Ecoparque_2',
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Ecoparque_2');
+        map.getPane('pane_Ecoparque_2').style.zIndex = 402;
+        map.getPane('pane_Ecoparque_2').style['mix-blend-mode'] = 'normal';
+        var layer_Ecoparque_2 = new L.geoJson(json_Ecoparque_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Ecoparque_2',
+            layerName: 'layer_Ecoparque_2',
+            pane: 'pane_Ecoparque_2',
+            onEachFeature: pop_Ecoparque_2,
+            style: style_Ecoparque_2_0,
+        });
+        bounds_group.addLayer(layer_Ecoparque_2);
+        map.addLayer(layer_Ecoparque_2);
+        function pop_Bairros_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nmbairro'] !== null ? autolinker.link(feature.properties['nmbairro'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Bairros_3_0() {
+            return {
+                pane: 'pane_Bairros_3',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Bairros_3');
+        map.getPane('pane_Bairros_3').style.zIndex = 403;
+        map.getPane('pane_Bairros_3').style['mix-blend-mode'] = 'normal';
+        var layer_Bairros_3 = new L.geoJson(json_Bairros_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Bairros_3',
+            layerName: 'layer_Bairros_3',
+            pane: 'pane_Bairros_3',
+            onEachFeature: pop_Bairros_3,
+            style: style_Bairros_3_0,
+        });
+        bounds_group.addLayer(layer_Bairros_3);
+        map.addLayer(layer_Bairros_3);
+        function pop_Pesquisa3Q3S_Cascavel_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">fid</th>\
@@ -304,27 +383,27 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Pesquisa3Q3S_Cascavel_2_0(feature) {
+        function style_Pesquisa3Q3S_Cascavel_4_0(feature) {
             if (feature.properties['PREÇO'] >= 390000.000000 && feature.properties['PREÇO'] <= 800000.000000 ) {
                 return {
-                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
-                radius: 8.0,
+                pane: 'pane_Pesquisa3Q3S_Cascavel_4',
+                radius: 4.0,
                 opacity: 1,
-                color: 'rgba(128,17,25,0.0)',
+                color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
                 weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(166,206,227,1.0)',
+                fillColor: 'rgba(31,120,180,1.0)',
                 interactive: true,
             }
             }
             if (feature.properties['PREÇO'] >= 800000.000000 && feature.properties['PREÇO'] <= 1500000.000000 ) {
                 return {
-                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
-                radius: 8.0,
+                pane: 'pane_Pesquisa3Q3S_Cascavel_4',
+                radius: 5.0,
                 opacity: 1,
                 color: 'rgba(128,17,25,0.0)',
                 dashArray: '',
@@ -339,8 +418,8 @@
             }
             if (feature.properties['PREÇO'] >= 1500000.000000 && feature.properties['PREÇO'] <= 2200000.000000 ) {
                 return {
-                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
-                radius: 8.0,
+                pane: 'pane_Pesquisa3Q3S_Cascavel_4',
+                radius: 6.0,
                 opacity: 1,
                 color: 'rgba(128,17,25,0.0)',
                 dashArray: '',
@@ -355,8 +434,8 @@
             }
             if (feature.properties['PREÇO'] >= 2200000.000000 && feature.properties['PREÇO'] <= 3000000.000000 ) {
                 return {
-                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
-                radius: 8.0,
+                pane: 'pane_Pesquisa3Q3S_Cascavel_4',
+                radius: 7.0,
                 opacity: 1,
                 color: 'rgba(128,17,25,0.0)',
                 dashArray: '',
@@ -371,7 +450,7 @@
             }
             if (feature.properties['PREÇO'] >= 3000000.000000 && feature.properties['PREÇO'] <= 4000000.000000 ) {
                 return {
-                pane: 'pane_Pesquisa3Q3S_Cascavel_2',
+                pane: 'pane_Pesquisa3Q3S_Cascavel_4',
                 radius: 8.0,
                 opacity: 1,
                 color: 'rgba(227,26,28,1.0)',
@@ -386,201 +465,29 @@
             }
             }
         }
-        map.createPane('pane_Pesquisa3Q3S_Cascavel_2');
-        map.getPane('pane_Pesquisa3Q3S_Cascavel_2').style.zIndex = 402;
-        map.getPane('pane_Pesquisa3Q3S_Cascavel_2').style['mix-blend-mode'] = 'normal';
-        var layer_Pesquisa3Q3S_Cascavel_2 = new L.geoJson(json_Pesquisa3Q3S_Cascavel_2, {
+        map.createPane('pane_Pesquisa3Q3S_Cascavel_4');
+        map.getPane('pane_Pesquisa3Q3S_Cascavel_4').style.zIndex = 404;
+        map.getPane('pane_Pesquisa3Q3S_Cascavel_4').style['mix-blend-mode'] = 'normal';
+        var layer_Pesquisa3Q3S_Cascavel_4 = new L.geoJson(json_Pesquisa3Q3S_Cascavel_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Pesquisa3Q3S_Cascavel_2',
-            layerName: 'layer_Pesquisa3Q3S_Cascavel_2',
-            pane: 'pane_Pesquisa3Q3S_Cascavel_2',
-            onEachFeature: pop_Pesquisa3Q3S_Cascavel_2,
+            dataVar: 'json_Pesquisa3Q3S_Cascavel_4',
+            layerName: 'layer_Pesquisa3Q3S_Cascavel_4',
+            pane: 'pane_Pesquisa3Q3S_Cascavel_4',
+            onEachFeature: pop_Pesquisa3Q3S_Cascavel_4,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Pesquisa3Q3S_Cascavel_2_0(feature));
+                return L.circleMarker(latlng, style_Pesquisa3Q3S_Cascavel_4_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Pesquisa3Q3S_Cascavel_2);
-        map.addLayer(layer_Pesquisa3Q3S_Cascavel_2);
+        bounds_group.addLayer(layer_Pesquisa3Q3S_Cascavel_4);
+        map.addLayer(layer_Pesquisa3Q3S_Cascavel_4);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Pesquisa 3Q3S_Cascavel<br /><table><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R390000R8000000.png" /></td><td>R$390.000 - R$800.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R800000R15000001.png" /></td><td>R$800.000 - R$1.500.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R1500000R22000002.png" /></td><td>R$1.500.000 - R$2.200.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R2200000R30000003.png" /></td><td>R$2.200.000 - R$3.000.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_2_R3000000R40000004.png" /></td><td>R$3.000.000 - R$4.000.000</td></tr></table>': layer_Pesquisa3Q3S_Cascavel_2,"Interpolador": layer_Interpolador_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Pesquisa 3Q3S_Cascavel<br /><table><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R390000R8000000.png" /></td><td>R$390.000 - R$800.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R800000R15000001.png" /></td><td>R$800.000 - R$1.500.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R1500000R22000002.png" /></td><td>R$1.500.000 - R$2.200.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R2200000R30000003.png" /></td><td>R$2.200.000 - R$3.000.000</td></tr><tr><td style="text-align: center;"><img src="legend/Pesquisa3Q3S_Cascavel_4_R3000000R40000004.png" /></td><td>R$3.000.000 - R$4.000.000</td></tr></table>': layer_Pesquisa3Q3S_Cascavel_4,'<img src="legend/Bairros_3.png" /> Bairros': layer_Bairros_3,'<img src="legend/Ecoparque_2.png" /> Ecoparque': layer_Ecoparque_2,"Superfície de Interpolação": layer_SuperfciedeInterpolao_1,"Google Satellite": layer_GoogleSatellite_0,},{collapsed:false}).addTo(map);
         setBounds();
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"STATUS": "str","SACADA": "str"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + keyS).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_STATUS = document.createElement('div');
-            div_STATUS.id = "div_STATUS";
-            div_STATUS.className= "filterselect";
-            document.getElementById("menu").appendChild(div_STATUS);
-            sel_STATUS = document.createElement('select');
-            sel_STATUS.multiple = true;
-            sel_STATUS.size = 3;
-            sel_STATUS.id = "sel_STATUS";
-            var STATUS_options_str = "<option value='' unselected></option>";
-            sel_STATUS.onchange = function(){filterFunc()};
-            STATUS_options_str  += '<option value="Lançamento">Lançamento</option>';
-            STATUS_options_str  += '<option value="Novo">Novo</option>';
-            STATUS_options_str  += '<option value="Usado">Usado</option>';
-            sel_STATUS.innerHTML = STATUS_options_str;
-            div_STATUS.appendChild(sel_STATUS);
-            var lab_STATUS = document.createElement('div');
-            lab_STATUS.innerHTML = 'STATUS';
-            lab_STATUS.className = 'filterlabel';
-            div_STATUS.appendChild(lab_STATUS);
-            var reset_STATUS = document.createElement('div');
-            reset_STATUS.innerHTML = 'clear filter';
-            reset_STATUS.className = 'filterlabel';
-            reset_STATUS.onclick = function() {
-                var options = document.getElementById("sel_STATUS").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_STATUS.appendChild(reset_STATUS);
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_SACADA = document.createElement('div');
-            div_SACADA.id = "div_SACADA";
-            div_SACADA.className= "filterselect";
-            document.getElementById("menu").appendChild(div_SACADA);
-            sel_SACADA = document.createElement('select');
-            sel_SACADA.multiple = true;
-            sel_SACADA.size = 2;
-            sel_SACADA.id = "sel_SACADA";
-            var SACADA_options_str = "<option value='' unselected></option>";
-            sel_SACADA.onchange = function(){filterFunc()};
-            SACADA_options_str  += '<option value="Não">Não</option>';
-            SACADA_options_str  += '<option value="Sim">Sim</option>';
-            sel_SACADA.innerHTML = SACADA_options_str;
-            div_SACADA.appendChild(sel_SACADA);
-            var lab_SACADA = document.createElement('div');
-            lab_SACADA.innerHTML = 'SACADA';
-            lab_SACADA.className = 'filterlabel';
-            div_SACADA.appendChild(lab_SACADA);
-            var reset_SACADA = document.createElement('div');
-            reset_SACADA.innerHTML = 'clear filter';
-            reset_SACADA.className = 'filterlabel';
-            reset_SACADA.onclick = function() {
-                var options = document.getElementById("sel_SACADA").options;
-                for (var i=0; i < options.length; i++) {
-                    options[i].selected = false;
-                }
-                filterFunc();
-            };
-            div_SACADA.appendChild(reset_SACADA);
         L.ImageOverlay.include({
             getBounds: function () {
                 return this._bounds;
